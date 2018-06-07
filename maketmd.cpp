@@ -34,6 +34,7 @@ distribution.
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
+#include <string>
 #include <openssl/sha.h>
 
 #ifdef _WIN32
