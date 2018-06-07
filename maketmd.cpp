@@ -131,9 +131,13 @@ void tmd_create(uint8_t* tmd, std::fstream& app) {
 int main(int argc, char* argv[]) {
 	printf("TMD Creator for DSiWare Homebrew %s - %s\n", TMD_CREATOR_VER, TMD_CREATOR_DATE);
 	printf("by Przemyslaw Skryjomski (Tuxality)\n");
-	
-	if(argc != 3) {
-		printf("\nUsage: %s file.app file.tmd\n", argv[0]);
+	char* default_tmd = (char*)"title.tmd";
+
+	if(argc == 2) {
+		argv[2] = default_tmd;
+	}
+	else if(argc != 3) {
+		printf("\nUsage: %s file.app [file.tmd]\n", argv[0]);
 		return 1;
 	}
 	
