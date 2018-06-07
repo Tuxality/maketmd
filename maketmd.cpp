@@ -132,18 +132,26 @@ int main(int argc, char* argv[]) {
 	printf("TMD Creator for DSiWare Homebrew %s - %s\n", TMD_CREATOR_VER, TMD_CREATOR_DATE);
 	printf("by Przemyslaw Skryjomski (Tuxality)\n");
 	
-	if(argc != 3) {
-		printf("\nUsage: %s file.app file.tmd\n", argv[0]);
+	if(argc < 2) {
+		printf("\nUsage: %s file.app <file.tmd>\n", argv[0]);
 		return 1;
 	}
 	
+	// APP file (input)
 	std::fstream app(argv[1], std::ios::in | std::ios::binary);
-	std::fstream tmd(argv[2], std::ios::out | std::ios::binary);
 	
 	if(!app.is_open()) {
 		printf("Error at opening %s for reading.\n", argv[1]);
 		return 1;
 	}
+
+	// TMD file (output)
+	std::string tmdPath = "title.tmd";
+	if(argc > 2) {
+		tmdPath = argv[2];
+	}
+
+	std::fstream tmd(tmdPath, std::ios::out | std::ios::binary);
 	
 	if(!tmd.is_open()) {
 		printf("Error at opening %s for writing.\n", argv[2]);
