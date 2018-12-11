@@ -16,8 +16,8 @@ endif
 all: $(TARGET)
 
 version.h: Makefile
-	@echo -e "#define TMD_CREATOR_VER  \""$(VERSION_VER)"\"" > version.h
-	@echo -e "#define TMD_CREATOR_DATE \""$(VERSION_DATE)"\"" >> version.h
+	@printf "#define TMD_CREATOR_VER  \"%s\"\r\n" "$(VERSION_VER)" > version.h
+	@printf "#define TMD_CREATOR_DATE \"%s\"\r\n" "$(VERSION_DATE)" >> version.h
 
 %.o: %.cpp version.h
 	$(CXX) $(CFLAGS) -c $< -o $@
