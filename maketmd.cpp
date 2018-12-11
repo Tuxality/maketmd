@@ -41,6 +41,11 @@ distribution.
 uint32_t __bswap_32(uint32_t value) {
 	return _byteswap_ulong(value);
 }
+#elif __APPLE__
+#include <libkern/OSByteOrder.h>
+uint32_t __bswap_32(uint32_t value) {
+	return OSSwapInt32(value);
+}
 #else
 #include <byteswap.h>
 #endif	// _WIN32

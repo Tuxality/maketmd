@@ -10,14 +10,19 @@ ifeq ($(OS),Windows_NT)
 	TARGET = $(TARGET_NAME).exe
 	LFLAGS += -static -static-libgcc
 else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		CFLAGS += -I/usr/local/opt/openssl/include
+		LFLAGS += -L/usr/local/opt/openssl/lib
+	endif
 	TARGET = $(TARGET_NAME)
 endif
 
 all: $(TARGET)
 
 version.h: Makefile
-	@echo -e "#define TMD_CREATOR_VER  \""$(VERSION_VER)"\"" > version.h
-	@echo -e "#define TMD_CREATOR_DATE \""$(VERSION_DATE)"\"" >> version.h
+	@printf "#define TMD_CREATOR_VER  \"%s\"\r\n" "$(VERSION_VER)" > version.h
+	@printf "#define TMD_CREATOR_DATE \"%s\"\r\n" "$(VERSION_DATE)" >> version.h
 
 %.o: %.cpp version.h
 	$(CXX) $(CFLAGS) -c $< -o $@

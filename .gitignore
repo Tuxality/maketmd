@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# MacOS annoying file
+.DS_Store
