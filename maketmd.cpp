@@ -69,9 +69,21 @@ void tmd_create(uint8_t* tmd, std::fstream& app) {
 	
 	// Phase 2 - offset 0x190 (Title ID, second part)
 	{
+		if(argc < 3) {
 		// We can take this also from 0x230, but reversed
 		app.seekg(0x0C, app.beg);
 		app.read((char*)&tmd[0x190], 4);
+		}
+		else
+		{
+		app.seekg(0x230, app.beg);
+
+		uint32_t sndTID;
+		app.read((char*)&sndTID, 4);
+		sndTID= __bswap_32(sndTID);
+
+		memcpy(tmd + 0x190, &sndTID, 4);
+		}
 	}
 	
 	// Phase 3 - offset 0x198 (Group ID = '01')
